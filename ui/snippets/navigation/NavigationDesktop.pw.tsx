@@ -212,3 +212,37 @@ base.describe('cookie set to true', () => {
     expect(await networkMenu.isVisible()).toBe(false);
   });
 });
+
+test('hover +@dark-mode', async({ mount }) => {
+  const component = await mount(
+    <TestApp>
+      <Flex w="100%" minH="100vh" alignItems="stretch">
+        <NavigationDesktop/>
+        <Box bgColor="lightpink" w="100%"/>
+      </Flex>
+    </TestApp>,
+    { hooksConfig },
+  );
+
+  await component.locator('header').hover();
+  await expect(component).toHaveScreenshot();
+});
+
+test.describe('hover xl screen', () => {
+  test.use({ viewport: configs.viewport.xl });
+
+  test('+@dark-mode', async({ mount }) => {
+    const component = await mount(
+      <TestApp>
+        <Flex w="100%" minH="100vh" alignItems="stretch">
+          <NavigationDesktop/>
+          <Box bgColor="lightpink" w="100%"/>
+        </Flex>
+      </TestApp>,
+      { hooksConfig },
+    );
+
+    await component.locator('header').hover();
+    await expect(component).toHaveScreenshot();
+  });
+});
